@@ -50,6 +50,9 @@ extension TDSVC: UITableViewDataSource {
         model.configureTableViewCell?(cell, model, indexPath)
         return cell
     }
+    open func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        return []
+    }
 }
 
 // Minimal UITableViewDelegate conformance
@@ -62,7 +65,12 @@ extension TDSVC: UITableViewDelegate {
             self.dataSource(for: tableView)?.selectItem(at: indexPath)
         })
     }
-
+    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    open func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
     open func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         // ...and just to be sure: same here as in 'didSelectRowAt'
         DispatchQueue.main.async(execute: { [unowned self] () -> Void in
